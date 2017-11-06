@@ -24,7 +24,7 @@ namespace GigHub.Controllers
             if (_context.
                 Attendances.
                 Any(a => a.AttendeeId == userId && a.GigId == dto.GigId))
-                return BadRequest("The attendance akready exists");
+                return BadRequest("The attendance already exists");
 
             var attendance = new Attendance
             {
