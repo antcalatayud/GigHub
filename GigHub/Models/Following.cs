@@ -15,5 +15,4 @@ namespace GigHub.Models
         [Key]
         [Column(Order = 2)]
         public string FolloweeId { get; set; }
-    }
 }
