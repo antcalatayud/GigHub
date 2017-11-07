@@ -363,13 +363,8 @@
     <EmbeddedResource Include="Migrations\201711031535081_AddAttendance.resx">
       <DependentUpon>201711031535081_AddAttendance.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="Migrations\201711061507044_AddFollowing.resx">
       <DependentUpon>201711061507044_AddFollowing.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="Migrations\201711061235427_AddFollowing.resx">
-      <DependentUpon>201711061235427_AddFollowing.cs</DependentUpon>
->>>>>>> master
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
