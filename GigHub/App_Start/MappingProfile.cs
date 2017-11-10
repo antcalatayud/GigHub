@@ -10,7 +10,6 @@ namespace GigHub.App_Start
 
         public MappingProfile()
         {
-
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ApplicationUser, UserDto>();
@@ -20,7 +19,6 @@ namespace GigHub.App_Start
             });
 
             mapper = config.CreateMapper();
-
         }
     }
 }
