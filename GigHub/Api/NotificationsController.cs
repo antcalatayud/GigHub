@@ -14,10 +14,12 @@ namespace GigHub.Api
     public class NotificationsController : ApiController
     {
         private readonly ApplicationDbContext _context;
+        private readonly MappingProfile mappingProfile; 
 
         public NotificationsController()
         {
             _context = new ApplicationDbContext();
+            mappingProfile = new MappingProfile();
         }
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
@@ -27,11 +29,9 @@ namespace GigHub.Api
                 .Where(un => un.UserId == userId && !un.IsRead)
                 .Select(un => un.Notification)
                 .Include(n => n.Gig.Artist)
-                .ToList();
+                .ToList();            
 
-            var mapper = new MappingProfile().mapper;
-
-            return notifications.Select(mapper.Map<Notification, NotificationDto>);
+            return notifications.Select(mappingProfile.mapper.Map<Notification, NotificationDto>);
         }
     }
 }
