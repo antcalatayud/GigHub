@@ -46,14 +46,14 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script type="text/x-template"  id="notifications-template">        
-        <ul>
+        <ul class="notifications">
             <%
                 _.each(notifications, function(notification){
                     if (notification.notificationType == 1) 
                     {%>
-                        <li><%= notification.gig.artist.name %> 
+                        <li><span class="highlight"><%= notification.gig.artist.name %></span>
                             has canceled the gig at <%= notification.gig.venue %> 
-                            at <%= notification.gig.dateTime %>
+                            at <%= moment(notification.gig.dateTime).format("D MMM HH:mm") %>
                         </li>
                     <%}
                     else if(notification.notificationType == 2)
@@ -71,11 +71,11 @@
                         if (notification.originalDateTime != notification.gig.dateTime)
                         {
                             changes.push('date/time');
-                            originalValues.push(notification.originalDateTime);
-                            newValues.push(notification.gig.dateTime);
+                            originalValues.push(moment(notification.originalDateTime).format("D MMM HH:mm"));
+                            newValues.push(moment(notification.gig.dateTime).format("D MMM HH:mm"));
                         }%>
 
-                        <li><%= notification.gig.artist.name %> 
+                        <li><span class="highlight"><%= notification.gig.artist.name %></span>
                                 has changed the <%= changes.join(' and ') %> 
                                 of the gig from <%= originalValues.join('/') %> 
                                 to <%= newValues.join('/') %>
@@ -86,7 +86,7 @@
                     {%>
                         <li><%= notification.gig.artist.name %> 
                             has created a new gig at <%= notification.gig.venue %> 
-                            at <%= notification.gig.dateTime %></li>
+                            at <%= moment(notification.gig.dateTime).format("D MMM HH:mm") %></li>
                     <%}
                 })
 
@@ -97,6 +97,7 @@
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
+                if (notifications == 0) return;
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide")
@@ -109,7 +110,8 @@
                         var compile = _.template($("#notifications-template").html());                        
                         return compile({ notifications: notifications });
                     },
-                    placement: "bottom"
+                    placement: "bottom",
+                    template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
                 });
             });            
         });
