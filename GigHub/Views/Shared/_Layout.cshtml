@@ -111,7 +111,17 @@
                     },
                     placement: "bottom",
                     template: '<div class="popover popover-notifications" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
-                });
+                })
+                .on("shown.bs.popover", function () {
+                    $.post("/api/notifications")
+                    .fail(function () {
+                        alert("Something failed");
+                    })               
+                })
+                .on("hidden.bs.popover", function () {
+                    $(".js-notifications-count")
+                      .addClass("fadeOut") 
+                });                
             });            
         });
     </script>

@@ -14,7 +14,7 @@ namespace GigHub.Api
     public class NotificationsController : ApiController
     {
         private readonly ApplicationDbContext _context;
-        private readonly MappingProfile mappingProfile; 
+        private readonly MappingProfile mappingProfile;
 
         public NotificationsController()
         {
@@ -29,9 +29,25 @@ namespace GigHub.Api
                 .Where(un => un.UserId == userId && !un.IsRead)
                 .Select(un => un.Notification)
                 .Include(n => n.Gig.Artist)
-                .ToList();            
+                .ToList();
 
             return notifications.Select(mappingProfile.mapper.Map<Notification, NotificationDto>);
+        }
+
+        [HttpPost]
+        public IHttpActionResult MarkAsRead()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var notifications = _context.UserNotifications
+                .Where(un => un.UserId == userId && !un.IsRead)
+                .ToList();
+
+            notifications.ForEach(n => n.Read());
+
+            _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
