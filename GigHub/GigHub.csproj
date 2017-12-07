@@ -193,6 +193,7 @@
   <ItemGroup>
     <Compile Include="Api\GigsController.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="ViewModels\GigsDetailsViewModel.cs" />
     <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\GigDto.cs" />
     <Compile Include="Dtos\NotificationDto.cs" />
@@ -378,6 +379,7 @@
     <Content Include="Views\Followees\Index.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <Content Include="Views\Gigs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
