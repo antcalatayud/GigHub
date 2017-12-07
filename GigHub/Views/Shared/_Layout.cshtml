@@ -42,7 +42,8 @@
     </div>
 
     
-    @Scripts.Render("~/bundles/libs")
+    @Scripts.Render("~/bundles/lib")
+    @Scripts.Render("~/bundles/app")
     @RenderSection("scripts", required: false)
     <script type="text/x-template"  id="notifications-template">        
         <ul class="notifications">
