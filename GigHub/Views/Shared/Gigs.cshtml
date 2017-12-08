@@ -17,7 +17,7 @@
         </div>
     </div>
 }
-<ul class="gigs voffset4">
+<ul id="gigs" class="gigs voffset4">
     @foreach (var gig in Model.UpcomingGigs)
     {
         <li>
@@ -66,22 +66,10 @@
     }
 </ul>
 
-
-
-
-
-
-
-
-
-
-
-
-
 @section scripts
 {
     <script>
-        GigsController.init();
+        GigsController.init("#gigs");
         $(document).ready(function () {            
             $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
@@ -96,6 +84,4 @@
             });
         });
     </script>
-
-
 }
