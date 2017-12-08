@@ -43,8 +43,7 @@
 
                     @if (Model.ShowActions)
                     {
-                        <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow" 
-                                value="@(Model.Follows.Contains(gig.ArtistId) ? "Following" : "Follow?")">
+                        <button data-user-id="@gig.ArtistId" class="btn btn-link btn-sm pull-right js-toggle-follow">
                             @(Model.Follows.Contains(gig.ArtistId) ? "Following" : "Follow?")                             
                         </button>
                     }
@@ -73,12 +72,10 @@
     <script>
         GigsController.init("#gigs");
 
-
         $(document).ready(function () {
             $(".js-toggle-follow").click(function (e) {
                 var button = $(e.target);
-                var text = button.val();
-                if (text == "Follow?") {
+                if (button.text().trim() == "Follow?") {
                     $.post("/api/followings", { followeeId: button.attr("data-user-id") })
                     .done(function () {
                         button
@@ -94,8 +91,8 @@
                         type: "DELETE"
                     })
                     .done(function () {
-                        button
-                            .text("Following");
+                        button                            
+                            .text("Follow?");
                     })
                     .fail(function () {
                         alert("Something failed");
