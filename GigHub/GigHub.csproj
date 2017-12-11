@@ -193,6 +193,7 @@
   <ItemGroup>
     <Compile Include="Api\GigsController.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Repositories\AttendanceRepository.cs" />
     <Compile Include="Repositories\FollowRepository.cs" />
     <Compile Include="Repositories\GenreRepository.cs" />
