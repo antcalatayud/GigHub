@@ -1,4 +1,5 @@
 ﻿using GigHub.Models;
+using GigHub.Repositories;
 using GigHub.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -11,10 +12,14 @@ namespace GigHub.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly AttendanceRepository _attendanceRepository;
+        private readonly FollowRepository _followRepository;
 
         public HomeController()
         {
             _context = new ApplicationDbContext();
+            _attendanceRepository = new AttendanceRepository(_context);
+            _followRepository = new FollowRepository(_context);
         }
         public ActionResult Index(string query = null)
         {
@@ -34,15 +39,6 @@ namespace GigHub.Controllers
             }
 
             string userId = User.Identity.GetUserId();
-            var attendances = _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList()
-                .ToLookup(a => a.GigId);
-
-            var follows = _context.Followings
-                .Where(f => f.FollowerId == userId)
-                .ToList()
-                .ToLookup(f => f.FolloweeId);
 
             var viewModel = new GigsViewModel
             {
@@ -50,8 +46,8 @@ namespace GigHub.Controllers
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Upcoming Gigs",
                 SearchTerm = query,
-                Attendances = attendances,
-                Follows = follows
+                Attendances = _attendanceRepository.GetFutureAttendances(userId).ToLookup(a => a.GigId),
+                Follows = _followRepository.GetUserFollowees(userId).ToLookup(f => f.FolloweeId)
             };
 
             return View("Gigs", viewModel);

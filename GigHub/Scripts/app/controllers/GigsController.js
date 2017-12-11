@@ -22,7 +22,7 @@
     };
 
     var done = function () {
-        var text = (button.text() == "Going") ? "Going?" : "Going";
+        var text = (button.text().trim() == "Going") ? "Going?" : "Going";
         toggleClass(text);
     };
 

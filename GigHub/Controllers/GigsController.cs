@@ -1,4 +1,5 @@
 ﻿using GigHub.Models;
+using GigHub.Repositories;
 using GigHub.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -11,10 +12,16 @@ namespace GigHub.Controllers
     public class GigsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly GigRepository _gigRepository;
+        private readonly AttendanceRepository _attendanceRepository;
+        private readonly FollowRepository _followRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
+            _gigRepository = new GigRepository(_context);
+            _attendanceRepository = new AttendanceRepository(_context);
+            _followRepository = new FollowRepository(_context);
         }
 
         [Authorize]
@@ -37,34 +44,18 @@ namespace GigHub.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var gigs = _context.Attendances
-                .Where(a => a.AttendeeId == userId)
-                .Select(a => a.Gig)
-                .Include(g => g.Artist)
-                .Include(g => g.Genre)
-                .ToList();
-
-            var attendances = _context.Attendances
-                .Where(a => a.AttendeeId == userId && a.Gig.DateTime > DateTime.Now)
-                .ToList()
-                .ToLookup(a => a.GigId);
-
-            var follows = _context.Followings
-                .Where(f => f.FollowerId == userId)
-                .ToList()
-                .ToLookup(f => f.FolloweeId);
-
             var viewModel = new GigsViewModel
             {
-                UpcomingGigs = gigs,
+                UpcomingGigs = _gigRepository.GetGigsUserAttending(userId),
                 ShowActions = User.Identity.IsAuthenticated,
                 Heading = "Gigs I'm Attending",
-                Attendances = attendances,
-                Follows = follows
+                Attendances = _attendanceRepository.GetFutureAttendances(userId).ToLookup(a => a.GigId),
+                Follows = _followRepository.GetUserFollowees(userId).ToLookup(f => f.FolloweeId)
             };
 
             return View("Gigs", viewModel);
         }
+
 
         [Authorize]
         public ActionResult Create()

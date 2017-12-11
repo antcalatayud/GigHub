@@ -193,6 +193,9 @@
   <ItemGroup>
     <Compile Include="Api\GigsController.cs" />
     <Compile Include="App_Start\MappingProfile.cs" />
+    <Compile Include="Repositories\AttendanceRepository.cs" />
+    <Compile Include="Repositories\FollowRepository.cs" />
+    <Compile Include="Repositories\GigRepository.cs" />
     <Compile Include="ViewModels\GigsDetailsViewModel.cs" />
     <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\GigDto.cs" />
