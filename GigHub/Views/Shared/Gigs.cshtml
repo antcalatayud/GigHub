@@ -58,7 +58,7 @@
                     <button data-gig-id="@gig.Id"
                             class="btn
                             @(Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default")
-                            btn-sm pull-right js-toggle-attendance">
+                            btn-sm js-toggle-attendance">
                         @(Model.Attendances.Contains(gig.Id) ? "Going" : "Going?")
                     </button>
                 }
@@ -71,35 +71,6 @@
 {
     <script>
         GigsController.init("#gigs");
-
-        $(document).ready(function () {
-            $(".js-toggle-follow").click(function (e) {
-                var button = $(e.target);
-                if (button.text().trim() == "Follow?") {
-                    $.post("/api/followings", { followeeId: button.attr("data-user-id") })
-                    .done(function () {
-                        button
-                            .text("Following");
-                    })
-                    .fail(function () {
-                        alert("Something failed");
-                    });
-                }
-                else {
-                    $.ajax({
-                        url: "/api/followings/" + button.attr("data-user-id"),
-                        type: "DELETE"
-                    })
-                    .done(function () {
-                        button                            
-                            .text("Follow?");
-                    })
-                    .fail(function () {
-                        alert("Something failed");
-                    });
-                }
-
-            });
-        });
+        ArtistController.init("#gigs");
     </script>
 }

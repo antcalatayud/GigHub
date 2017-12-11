@@ -1,4 +1,4 @@
-﻿var GigsController = function (attendaceService) {
+﻿var GigsController = function (attendaceService, followService) {
 
     var button;
 
@@ -15,7 +15,7 @@
             attendaceService.createAttendance(gigId, done, fail);
         else
             attendaceService.deleteAttendance(gigId, done, fail);
-    };
+    };   
 
     var fail = function () {
         alert("Something failed");
@@ -23,6 +23,10 @@
 
     var done = function () {
         var text = (button.text() == "Going") ? "Going?" : "Going";
+        toggleClass(text);
+    };
+
+    var toggleClass = function (text) {
         button.toggleClass("btn-info").toggleClass("btn-default").text(text);
     };
 
