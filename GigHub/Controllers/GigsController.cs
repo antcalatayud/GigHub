@@ -82,7 +82,9 @@ namespace GigHub.Controllers
                 GenreId = viewModel.Genre,
                 Venue = viewModel.Venue
             };
-            _context.Gigs.Add(gig);
+
+            _gigRepository.Add(gig); 
+
             _context.SaveChanges();
 
             return RedirectToAction("Mine", "Gigs");
