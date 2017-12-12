@@ -1,4 +1,6 @@
-﻿using GigHub.Models;
+﻿using GigHub.Core;
+using GigHub.Core.Repositories;
+using GigHub.Persistence.Repositories;
 using GigHub.Repositories;
 
 namespace GigHub.Persistence

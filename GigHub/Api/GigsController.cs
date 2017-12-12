@@ -1,4 +1,4 @@
-﻿using GigHub.Models;
+﻿using GigHub.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace GigHub.Api
             if (gig.IsCanceled)
                 return NotFound();
 
-            gig.Cancel(); 
+            gig.Cancel();
 
             _context.SaveChanges();
 
