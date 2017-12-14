@@ -27,5 +27,14 @@ namespace GigHub.Repositories
             return _context.Followings
                     .SingleOrDefault(f => f.FollowerId == userId && f.FolloweeId == artistId);
         }
+
+        public IEnumerable<ApplicationUser> GetUserFolloweesWithName(string userId)
+        {
+            return _context
+                .Followings
+                .Where(f => f.FollowerId == userId)
+                .Select(f => f.Followee)
+                .ToList();
+        }
     }
 }

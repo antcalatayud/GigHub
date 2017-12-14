@@ -490,7 +490,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59783</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:59783/</IISUrl>
+          <IISUrl>http://localhost:12345/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
