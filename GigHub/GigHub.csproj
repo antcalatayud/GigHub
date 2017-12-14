@@ -231,6 +231,7 @@
     <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
+    <Compile Include="Persistence\EntityConfigurations\GigConfiguration.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Persistence\Repositories\AttendanceRepository.cs" />
     <Compile Include="Persistence\Repositories\FollowRepository.cs" />
